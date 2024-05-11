@@ -1,0 +1,17 @@
+services:
+  rest-api:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/app
+  db:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=dev

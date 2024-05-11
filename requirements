@@ -1,0 +1,83 @@
+Prueba Practica Backend
+
+Dirigido a
+Desarrolladores Backend interesados en una posición de desarrollador.
+
+Objetivos
+Implementar un servicon API REST que permita la navegación y operaciones a través de un árbol de nodos.
+
+Definir el modelo de datos.
+Diseñar endpoints para:
+
+Crear Nodos
+Listar nodos padres
+Listar nodos hijos a partir del padre
+Eliminar nodos
+
+
+Implementar endpoints
+
+
+Requerimientos Funcionales
+
+
+El árbol debe ser almacenado en una Base de Datos y es accedido mediante los enpoints definidos.
+
+
+Los nodos deben poseer la siguiente estructura:
+{"id": 1,"parent": null,"title": "one","created_at":"2022-10-21 00:00:00"}
+
+id: representa el identificador unico del nodo.
+parent: Nodo padre, puede ser nulo y sería un nodo raíz. El árbol puede tener varios nodos raíz.
+title: Titulo del nodo, debe corresponder a la representación textual del id, por ejemplo, si el id es "1", el title sera "one".
+created_at: Fecha y hora de cración del nodo en UTC
+
+
+
+Se debe poder enviar por los headers el idioma en formato ISO 639-1 y obtener el campo title del nodo o nodos traducido.
+
+
+Se debe poner enviar una zona horaria y obtener el campo created_at en la zona horaria solicitada.
+
+
+Al listar nodos se debe poder opcionalmente por un parametro la profundidad, de no pasarse debe devolver solo los hijos directos.
+
+
+Se deben poder eliminar nodos, siempre y cuando no tengan hijos, De tener hijos se debe indicar con un error.
+
+
+Deberá realizarse una precarga de nodos en el sistema (Seeder).
+
+
+
+Requerimientos Técnicos
+
+El servicio debe estar diseñado e implementado basado en las mejoras prácticas.
+Se deben gestionar apropiadamente los errores.
+Se debe proveer alguna documentación del API como swagger.
+Se debe proveer instrucciones para correr el servicio y requerimientos.
+El Framework y tecnología a usar será de su elección en función a la posición que aplican.
+Pueden usar cualquier librería que consideren válida.
+Debe llevarse el proyecto con Git para control de versiones.
+
+
+Modo de Entrega
+
+Compilado o ejecutable (en caso de ser necesario) enviado a  reclutamiento+test@grupoapok.com
+
+Instrucciones de despliegue (preferiblemente simplificadas a la menor cantidad de comandos)
+Enlace al repositorio público con los códigos fuentes de la aplicación
+Colección de Postman o Insomnia
+Servicio corriendo en algún URL (Opcional)
+
+
+Requerimientos Adicionales (No Obligatorios)
+
+Solución puede ser ejecutada en un container de docker.
+
+
+Aspectos a Evaluar
+
+Estructura y estilo de código.
+Lógica de la solución.
+Cumplimiento de los requerimientos funcionales.
