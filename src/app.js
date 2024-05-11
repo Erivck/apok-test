@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import nodesRouter from "./routes";
+import nodesRouter from "./routes/nodes";
 import { PORT } from "./config";
 import { httpErrorHandler } from "./middlewares/httpErrorHandler";
 

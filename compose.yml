@@ -1,13 +1,45 @@
 services:
-  rest-api:
-    build: .
+  prisma-migrate:
+    build:
+      dockerfile: dockerfile
+      context: .
+    env_file:
+        - .env
+    environment:
+      DB_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    command: npm run migrate
+    volumes:
+      - .:/usr/src/app
     ports:
       - 3000:3000
-  db:
-    image: postgres:16
-    ports:
-      - 5432:5432
+    depends_on:
+      - postgres
+  api:
+    build:
+      dockerfile: dockerfile
+      context: .
+    env_file:
+        - .env
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=dev
+      DB_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports: 
+      - '5432:5432'
+    volumes:
+      - docker-postgres:/var/lib/postgresql/data
+
+volumes:
+  docker-postgres:
+  
