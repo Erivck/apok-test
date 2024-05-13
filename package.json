@@ -8,7 +8,7 @@
     "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up",
     "prisma:deploy": "prisma migrate dev  ",
     "prisma:migrate": "prisma migrate dev",
-    "transpile": "babel ./src --out-dir dist",
+    "transpile": "npx prisma generate && babel ./src --out-dir dist",
     "migrate": "prisma migrate dev",
     "prod:up": "docker compose -f ./compose.yml up",
     "prod:down": "docker compose -f ./compose.yml down",
