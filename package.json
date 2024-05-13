@@ -14,7 +14,7 @@
     "prod:down": "docker compose -f ./compose.yml down",
     "dev:up": "docker compose -f ./compose.dev.yml up",
     "dev:down": "docker compose -f ./compose.dev.yml down",
-    "start:prod": "npm run prisma:deploy && npm run start",
+    "start:prod": "sleep 1 && npm run prisma:deploy && npm run start",
     "start:dev": "sleep 1 && npm run prisma:deploy && npm run dev",
     "start": "npm run transpile && node dist/server.js",
     "dev": "nodemon"
