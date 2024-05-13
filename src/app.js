@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 import nodesRouter from "./routes/nodes";
 import { PORT } from "./config";
-import { httpErrorHandler } from "./middlewares/httpErrorHandler";
+import { HttpRequestError, httpErrorHandler } from "./middlewares/httpErrorHandler";
 
 dotenv.config();
 
@@ -21,6 +21,9 @@ app.get("/ping", (_req, res) => {
   return res.status(200).send({ message: "pong" });
 });
 
+app.use((req, res, next) => {
+  next(new HttpRequestError("", 404));
+});
 app.use(httpErrorHandler);
 
 export default app;

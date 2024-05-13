@@ -1,7 +1,7 @@
 import { prisma } from "../../db";
 import { formatDate, nameNumber } from "../../utils";
 import { HttpRequestError } from "../../middlewares/httpErrorHandler";
-import { translate } from "../translate";
+import { translate, translateTextArray } from "../translate";
 
 const nodeObject = (node) => {
   return {
@@ -12,54 +12,92 @@ const nodeObject = (node) => {
   }
 }
 
-const translateNodesTitle = (nodes) => {
-  if (nodes?.length && nodes.length < 1) return nodes;
-  return nodes.map((node) => {
-    return { ...node, title: translate(node.title)};
+const translateNodesTitle = async (nodes, target) => {
+  if (nodes?.title) {
+    nodes.title = await translate(nodes.title, target);
+    return
+  }
+  else if (nodes?.length && nodes?.length < 1) return;
+
+  const titles = nodes.map((node) => node.title);
+  const translated = await translateTextArray(titles, target);
+
+  translated.forEach((text, i) => {
+    nodes[i].title = text;
   });
+
+  return;
 }
 
 const create = async ({ parentId }) => {
-  const count = await prisma.node.count();
-  const node = await prisma.node.create({
+  let parent;
+
+  if (parentId) {
+    parent = await getById(parentId);
+  }
+
+  if (parent === null) {
+    throw new HttpRequestError("Parent node not found", 404);
+  }
+
+  const { id } = await prisma.node.create({
     data: {
-      title: nameNumber(count),
-      parent: parentId ? {
-        connect: {
-          id: parentId
-        }
-      } : null,
+      title: "temp",
+      parentId: parent ? parent.id : null
     }
   });
-  return nodeObject(node);
-};
-
-const getById = async (id) => {
-  const node = await prisma.node.findUnique({
+  const node = await prisma.node.update({
     where: {
       id,
     },
+    data: {
+      title: nameNumber(id),
+    },
   });
+
   return nodeObject(node);
 };
+
 
 const getParents = async () => {
   const nodes = await prisma.node.findMany({
     where: {
-      parent: null,
+      children: {
+        some: {},
+      },
     },
   });
   return nodes.map(nodeObject);
 };
 
+
+const getById = async (id) => {
+  const node = await prisma.node.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+
+  if (!node) {
+    throw new HttpRequestError("Node not found", 404);
+  }
+
+  return nodeObject(node);
+};
+
+
+
 const getChildren = async (id) => {
+  const node = await getById(id);
+
   const nodes = await prisma.node.findMany({
     where: {
-      parent: id,
+      parentId: node.id,
     },
   });
   return nodes.map(nodeObject);
 };
+
 
 const deleteById = async (id) => {
   const children = await getChildren(id);
@@ -68,11 +106,12 @@ const deleteById = async (id) => {
 
   const node = await prisma.node.delete({
     where: {
-      id,
+      id: Number(id),
     },
   });
   return nodeObject(node);
 };
+
 
 export const nodesService = {
   create,

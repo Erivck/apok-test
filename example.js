@@ -7,13 +7,13 @@ const options = {
   headers: {
     "content-type": "application/x-www-form-urlencoded",
     "Accept-Encoding": "application/gzip",
-    "X-RapidAPI-Key": TRANSLATE_API_KEY,
+    "X-RapidAPI-Key": "de43d88490mshb6d56fcb5fb0bfcp1f2e20jsn03661df5162e",
     "X-RapidAPI-Host": "google-translate1.p.rapidapi.com"
   },
 };
 
 
-export const translate = async (text, target) => {
+const translate = async (text, target) => {
   const params = new URLSearchParams({
     "source": "en",
     "target": target,
@@ -30,7 +30,7 @@ export const translate = async (text, target) => {
 };
 
 
-export const translateTextArray = async (textArray, target) => {
+const translateTextArray = async (textArray, target) => {
   const params = new URLSearchParams({
     "source": "en",
     "target": target,

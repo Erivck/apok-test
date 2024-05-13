@@ -41,9 +41,7 @@ export class HttpRequestError extends Error {
 
   static getFromError(error) {
     if (error instanceof HttpRequestError) return error;
-    else if (error instanceof PrismaClientKnownRequestError) {
-      return this.getFromPrismaRequestError(error);
-    } else if (error instanceof Error) {
+    else if (error instanceof Error) {
       return new HttpRequestError(error.message);
     }
     return new HttpRequestError();
@@ -58,7 +56,7 @@ export const httpErrorHandler = (
   _next
 ) => {
   if (LOG_ERRORS_TO_CONSOLE) {
-    console.log({ error });
+    console.error({ error });
   }
   const httpError = HttpRequestError.getFromError(error).getObject();
   return res.status(httpError.statusCode).send(httpError);

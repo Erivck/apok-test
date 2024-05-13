@@ -8,7 +8,6 @@ var single = ["zero", "one", "two", "three", "four", "five", "six", "seven", "ei
 var teens = ["eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
 var tens = ["ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 var nameNumber = exports.nameNumber = function nameNumber(number) {
-  console.log(number);
   if (typeof number != "number" || number < 0) return "undefined";
   var arr = String(number).split("").map(Number);
   var l = arr.length;

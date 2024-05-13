@@ -12,10 +12,9 @@ export const checkValidation = (req, _res, next) => {
   const result = validationResult(req);
 
   if (result.isEmpty()) {
-    next();
+    return next();
   }
-
   const error = new HttpRequestError(getErrorMsgs(result.array()), 400);
 
-  next(error);
+  return next(error);
 }

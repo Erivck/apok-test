@@ -14,8 +14,8 @@ var getErrorMsgs = function getErrorMsgs(errorsArray) {
 var checkValidation = exports.checkValidation = function checkValidation(req, _res, next) {
   var result = (0, _expressValidator.validationResult)(req);
   if (result.isEmpty()) {
-    next();
+    return next();
   }
   var error = new _httpErrorHandler.HttpRequestError(getErrorMsgs(result.array()), 400);
-  next(error);
+  return next(error);
 };

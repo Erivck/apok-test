@@ -3,8 +3,8 @@ import { nodesService } from "../../services";
 const createNode = async (req, res, next) => {
   try {
     const node = await nodesService.create(req.body);
-    if (req.translate == true) nodesService.translateNodesTitle([node]);
-    return res.status(201).send(node);
+    if (req.translate) await nodesService.translateNodesTitle(node, req.translate);
+    return res.status(201).send({ node });
   } catch (error) {
     return next(error);
   }
@@ -14,7 +14,7 @@ const getNode = async (req, res, next) => {
   try {
     const { id } = req.params;
     const node = await nodesService.getById(id);
-    if (req.translate == true) nodesService.translateNodesTitle([node]);
+    if (req.translate) await nodesService.translateNodesTitle(node, req.translate);
     return res.status(200).send({ node });
   } catch (error) {
     return next(error);
@@ -25,17 +25,17 @@ const getChildNodes = async (req, res, next) => {
   try {
     const { id } = req.params;
     const nodes = await nodesService.getChildren(id);
-    if (req.translate == true) nodesService.translateNodesTitle(nodes);
+    if (req.translate) await nodesService.translateNodesTitle(nodes, req.translate);
     return res.status(200).send({ child_nodes: nodes });
   } catch (error) {
     return next(error);
   }
 }
 
-const getParentNodes = async (_req, res, next) => {
+const getParentNodes = async (req, res, next) => {
   try {
     const nodes = await nodesService.getParents();
-    if (req.translate == true) nodesService.translateNodesTitle(nodes);
+    if (req.translate) await nodesService.translateNodesTitle(nodes, req.translate);
     return res.status(200).send({ parent_nodes: nodes });
   } catch (error) {
     return next(error);

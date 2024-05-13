@@ -15,11 +15,12 @@ nodesRouter.post("/",
   nodesControllers.createNode
 );
 
+nodesRouter.get("/parents", checkIfTranslationIsRequired, nodesControllers.getParentNodes);
+
 nodesRouter.get("/:id", checkIfTranslationIsRequired, nodesControllers.getNode);
 
 nodesRouter.get("/:id/children", checkIfTranslationIsRequired, nodesControllers.getChildNodes);
 
-nodesRouter.get("/parents", checkIfTranslationIsRequired, nodesControllers.getParentNodes);
 
 nodesRouter.delete("/:id", nodesControllers.deleteNode);
 

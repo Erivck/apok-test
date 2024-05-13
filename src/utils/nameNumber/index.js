@@ -6,8 +6,6 @@ const tens = ["ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "
 
 
 export const nameNumber = (number) => {
-  console.log(number);
-
   if (typeof number != "number" || number < 0 ) return "undefined";
 
   const arr = String(number).split("").map(Number);

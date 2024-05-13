@@ -65,9 +65,7 @@ var HttpRequestError = exports.HttpRequestError = /*#__PURE__*/function (_Error)
   }], [{
     key: "getFromError",
     value: function getFromError(error) {
-      if (error instanceof HttpRequestError) return error;else if (error instanceof PrismaClientKnownRequestError) {
-        return this.getFromPrismaRequestError(error);
-      } else if (error instanceof Error) {
+      if (error instanceof HttpRequestError) return error;else if (error instanceof Error) {
         return new HttpRequestError(error.message);
       }
       return new HttpRequestError();
@@ -76,7 +74,7 @@ var HttpRequestError = exports.HttpRequestError = /*#__PURE__*/function (_Error)
 }( /*#__PURE__*/_wrapNativeSuper(Error));
 var httpErrorHandler = exports.httpErrorHandler = function httpErrorHandler(error, _req, res, _next) {
   if (_config.LOG_ERRORS_TO_CONSOLE) {
-    console.log({
+    console.error({
       error: error
     });
   }

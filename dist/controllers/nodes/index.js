@@ -20,17 +20,25 @@ var createNode = /*#__PURE__*/function () {
           return _services.nodesService.create(req.body);
         case 3:
           node = _context.sent;
-          if (req.translate == true) _services.nodesService.translateNodesTitle([node]);
-          return _context.abrupt("return", res.status(201).send(node));
-        case 8:
-          _context.prev = 8;
+          if (!req.translate) {
+            _context.next = 7;
+            break;
+          }
+          _context.next = 7;
+          return _services.nodesService.translateNodesTitle(node, req.translate);
+        case 7:
+          return _context.abrupt("return", res.status(201).send({
+            node: node
+          }));
+        case 10:
+          _context.prev = 10;
           _context.t0 = _context["catch"](0);
           return _context.abrupt("return", next(_context.t0));
-        case 11:
+        case 13:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 10]]);
   }));
   return function createNode(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
@@ -48,19 +56,25 @@ var getNode = /*#__PURE__*/function () {
           return _services.nodesService.getById(id);
         case 4:
           node = _context2.sent;
-          if (req.translate == true) _services.nodesService.translateNodesTitle([node]);
+          if (!req.translate) {
+            _context2.next = 8;
+            break;
+          }
+          _context2.next = 8;
+          return _services.nodesService.translateNodesTitle(node, req.translate);
+        case 8:
           return _context2.abrupt("return", res.status(200).send({
             node: node
           }));
-        case 9:
-          _context2.prev = 9;
+        case 11:
+          _context2.prev = 11;
           _context2.t0 = _context2["catch"](0);
           return _context2.abrupt("return", next(_context2.t0));
-        case 12:
+        case 14:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 9]]);
+    }, _callee2, null, [[0, 11]]);
   }));
   return function getNode(_x4, _x5, _x6) {
     return _ref2.apply(this, arguments);
@@ -78,26 +92,32 @@ var getChildNodes = /*#__PURE__*/function () {
           return _services.nodesService.getChildren(id);
         case 4:
           nodes = _context3.sent;
-          if (req.translate == true) _services.nodesService.translateNodesTitle(nodes);
+          if (!req.translate) {
+            _context3.next = 8;
+            break;
+          }
+          _context3.next = 8;
+          return _services.nodesService.translateNodesTitle(nodes, req.translate);
+        case 8:
           return _context3.abrupt("return", res.status(200).send({
             child_nodes: nodes
           }));
-        case 9:
-          _context3.prev = 9;
+        case 11:
+          _context3.prev = 11;
           _context3.t0 = _context3["catch"](0);
           return _context3.abrupt("return", next(_context3.t0));
-        case 12:
+        case 14:
         case "end":
           return _context3.stop();
       }
-    }, _callee3, null, [[0, 9]]);
+    }, _callee3, null, [[0, 11]]);
   }));
   return function getChildNodes(_x7, _x8, _x9) {
     return _ref3.apply(this, arguments);
   };
 }();
 var getParentNodes = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(_req, res, next) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res, next) {
     var nodes;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
@@ -107,19 +127,25 @@ var getParentNodes = /*#__PURE__*/function () {
           return _services.nodesService.getParents();
         case 3:
           nodes = _context4.sent;
-          if (req.translate == true) _services.nodesService.translateNodesTitle(nodes);
+          if (!req.translate) {
+            _context4.next = 7;
+            break;
+          }
+          _context4.next = 7;
+          return _services.nodesService.translateNodesTitle(nodes, req.translate);
+        case 7:
           return _context4.abrupt("return", res.status(200).send({
             parent_nodes: nodes
           }));
-        case 8:
-          _context4.prev = 8;
+        case 10:
+          _context4.prev = 10;
           _context4.t0 = _context4["catch"](0);
           return _context4.abrupt("return", next(_context4.t0));
-        case 11:
+        case 13:
         case "end":
           return _context4.stop();
       }
-    }, _callee4, null, [[0, 8]]);
+    }, _callee4, null, [[0, 10]]);
   }));
   return function getParentNodes(_x10, _x11, _x12) {
     return _ref4.apply(this, arguments);

@@ -26,5 +26,8 @@ app.get("/ping", function (_req, res) {
     message: "pong"
   });
 });
+app.use(function (req, res, next) {
+  next(new _httpErrorHandler.HttpRequestError("", 404));
+});
 app.use(_httpErrorHandler.httpErrorHandler);
 var _default = exports["default"] = app;

@@ -1,0 +1,25 @@
+services:
+  dev-api:
+    build:
+      dockerfile: dockerfile.dev
+      context: .
+    env_file:
+        - .env
+    environment:
+      DB_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@dev-db:5432/${POSTGRES_DB}
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/app
+    depends_on:
+      - dev-db
+  dev-db:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports: 
+      - '5432:5432'
+
+  
