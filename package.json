@@ -6,7 +6,7 @@
     "db:dev:rm": "docker compose -f compose.dev.yml rm dev-db -s -f -v",
     "db:dev:up": "docker compose -f compose.dev.yml up dev-db -d && sleep 1 && npm run prisma:deploy",
     "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up",
-    "prisma:deploy": "prisma migrate deploy",
+    "prisma:deploy": "prisma migrate dev",
     "prisma:migrate": "prisma migrate dev",
     "transpile": "babel ./src --out-dir dist",
     "migrate": "prisma migrate reset --force",
